@@ -8,17 +8,17 @@ Sebuah proyek Fultter sebagai Tugas Mata Kuliah Pemrograman Berbasis Platform ol
 ## Tugas 7
 
 ### Elemen Dasar Flutter
-1. Membuat file baru bernama ```menu.dart``` pada folder lib dan meng_import_:
+1. Membuat file baru bernama ```menu.dart``` pada folder lib dan meng-_import_:
 ```bash
 import 'package:flutter/material.dart';
 ```
 
-2. Memindahkan kelas ```MyHomePage``` dan ```__MyHomePageState``` dari file ```main.dart``` ke ```menu.dart``` serta meng_import_:
+2. Memindahkan kelas ```MyHomePage``` dan ```__MyHomePageState``` dari file ```main.dart``` ke ```menu.dart``` serta meng-_import_:
 ```bash
 import 'package:trubuy_mobile/menu.dart';
 ```
 
-3. Membuat class baru bernama ```ColorSelect``` untuk deklarasi awal warna-warna yang dibutuhkan pada file ```menu.dart``` dan mengubah definisi ```colorScheme``` pada file ```main.dart```.
+3. Membuat class baru bernama ```ColorSelect``` untuk mendeklarasikan warna-warna yang dibutuhkan pada file ```menu.dart``` dan mengubah definisi ```colorScheme``` pada file ```main.dart```.
 ```bash
 class ColorSelect {
   static const cbuttons = Color(0xFFD2B48C);
@@ -32,7 +32,7 @@ colorScheme: ColorScheme.fromSwatch().copyWith(
         ),
 ```
 
-4. Mengubah sifat widget halaman menu menjadi stateless dengan mengganti 
+4. Mengubah sifat widget halaman menu menjadi stateless dengan mengganti:
 ```bash
 const MyHomePage(title: 'Flutter Demo Home Page')
 ```
@@ -67,16 +67,30 @@ class MyHomePage extends StatelessWidget {
 
 7. Mendeklarasikan variabel informasi pengguna untuk membuat Card.
 ```bash
-final String npm = '5000000000'; // NPM
-final String name = 'Gedagedi Gedagedago'; // Nama
-final String className = 'PBP S'; // Kelas
+final String npm = '2306275960'; // NPM
+final String name = 'Nisrina Annaisha Sarnadi'; // Nama
+final String className = 'PBP F'; // Kelas
 ```
 
 8. Membuat class ```InfoCard``` pada file ```menu.dart``` untuk membuat card.
 ```bash
-final String npm = '5000000000'; // NPM
-final String name = 'Gedagedi Gedagedago'; // Nama
-final String className = 'PBP S'; // Kelas
+class InfoCard extends StatelessWidget {
+
+  // Kartu informasi yang menampilkan title dan content
+  final String title;  // Judul kartu
+  final String content;  // Isi kartu
+
+  @override
+  Widget build(BuildContext context) {
+  ...
+            const SizedBox(height: 8.0),
+            Text(content),
+          ],
+        ),
+      ),
+    );
+  }
+}
 ```
 
 9. Membuat class ```ItemHomePage``` berisi atribut-atribut card.
@@ -98,41 +112,84 @@ final List<ItemHomepage> items = [
   ItemHomepage("Logout", Icons.logout, ColorSelect.cbuttons),
 ```
 
-10. Membuat class ```ItemCard``` untuk menampilkan button-button dan mengganti definisi ```color``` menjadi ```item.color```.
+10. Membuat class ```ItemCard``` untuk menampilkan button-button dan menampilkan snackbar yang berisi pesan "Kamu telah menekan tombol [nama button]"
+ ```bash
+class ItemCard extends StatelessWidget {
+  // Menampilkan kartu dengan ikon dan nama
+  final ItemHomepage item; 
   
-11. Mengintegrasikan ```InfoCard``` dan ```ItemCard``` untuk ditampilkan di ```MyHomePage``` dengan mengubah ```Widget build()``` pada class ```MyHomePage``` untuk menampilkan card-card.
+  const ItemCard(this.item, {super.key}); 
 
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      // Menentukan warna latar belakang dari tema aplikasi.
+      color: item.color,
+      ...
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+11. Mengintegrasikan ```InfoCard``` dan ```ItemCard``` untuk ditampilkan di ```MyHomePage``` dengan mengubah ```Widget build()``` pada class ```MyHomePage``` untuk menampilkan card-card.
+```bash
+class MyHomePage extends StatelessWidget {
+   ...
+
+                    children: items.map((ItemHomepage item) {
+                      return ItemCard(item);
+                    }).toList(),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+## Jawaban Pertanyaan
 1. **Stateless Widget dan Stateful Widget**
 
-Stateless widget adalah widget yang tidak dapat diubah setelah widget tersebut dibuat. Contohnya adalah text, Icon, dan RaisedButton. Stateful Widget adalah widget yang dapat mengubah keadaan setelah widget tersebut dibangun sehingga memungkinkan perubahan dinamis berdasarkan interaksi pengguna atau perubahan data. Contohnya adalah Checkbox, RadioButton, dan TetxtField. Oleh karena itu, secar umum, perbedaan keduanya adalah Stateless Widget bersifat statis setelah data ditampilkan sementara Stateful Widget bersifat dinamis dalam menampilkan data.
+Stateless widget adalah widget yang tidak dapat diubah setelah widget tersebut dibuat. Contohnya adalah text, Icon, dan RaisedButton. Stateful Widget adalah widget yang dapat mengubah keadaan setelah widget tersebut dibangun sehingga memungkinkan perubahan dinamis berdasarkan interaksi pengguna atau perubahan data. Contohnya adalah Checkbox, RadioButton, dan TetxtField. Oleh karena itu, secara umum, perbedaan keduanya adalah Stateless Widget bersifat statis setelah data ditampilkan sementara Stateful Widget bersifat dinamis dalam menampilkan data.
 
 2. **Widget yang digunakan dan Berfungsi**
 
-- Scaffold: Berfungsi untuk membuat halaman pada proyek Flutter.
-- AppBar: Berfungsi untuk menampilkan bar di bagian atas layar.
+- Material: Berfungsi untuk menyediakan latar belakang material design untuk widget.
 - Stateless: Berfungsi untuk menampilkan hal-hal yang sifatnya statis.
-- Padding: Berfungsi untuk memberikan ruang di sekitar widget anaknya.
+- Icon: Berfungsi untuk menampilkan icon yang telah disediakan oleh Flutter.
+- Scaffold: Berfungsi untuk membuat halaman pada proyek Flutter.
+- Text: Berfungsi untuk menampilkan sebuah teks.
+- AppBar: Berfungsi untuk menampilkan bar di bagian atas layar.
+- Padding: Berfungsi untuk memberikan jarak di sekitar widget dalam body halaman.
 - Layout
   - Row: Berfungsi untuk menampikan widget-widget secara horizontal dari kiri ke kanan.
   - Column: Berfungsi untuk menampilkan widget-widget secara vertikal dari atas ke bawah.
-  - Center: Berfungsi untuk mengatur posisi widget agar berada di tengah.
-  - Text: Berfungsi untuk menampilkan sebuah teks.
-  - Icon: Berfungsi untuk menampilkan icon yang telah disediakan oleh Flutter.
-  - Container: Berfungsi untuk membungkus widget lain untuk diatur posisinya.
-  - SizedBox: Berfungsi untuk membuat box.
-  - Inkwell: Berfungsi untuk menambahkan action pada widget.
-  - InfoCard: Berfungsi untuk menampilkan informasi.
-  - Card: Berfungsi untuk membuat kotak dengan efek bayangan di bawahnya.
-  - GridView: Berfungsi untuk menyusun anak-anaknya dalam grid.
-  - Material: Fungsi ini menyediakan latar belakang material design untuk widget anaknya.
-  - SnackBar: Berfungsi untuk memberikan umpan balik kepada pengguna
+- Center: Berfungsi untuk mengatur posisi widget agar berada di tengah.
+- GridView: Berfungsi untuk menyusun posisi widget-widget dalam susunan grid.
+- Card: Berfungsi untuk membuat kotak dengan efek bayangan di bawahnya.
+- Container: Berfungsi untuk membungkus suatu widget lain untuk diatur posisinya.
+- InfoCard: Berfungsi untuk menampilkan informasi di card.
+- SizedBox: Berfungsi untuk membuat box.
+- Inkwell: Berfungsi untuk menambahkan action pada widget.
+- SnackBar: Berfungsi untuk memberikan feedback atas suatu action.
     
 3. **Fungsi setState() dan variabel yang terdampak**
+   
+setState() berfungsi untuk memicu dilakukannya refresh pada tampilan aplikasi. Ketika `setState` dipanggil dan nilai variabel dalam state widget berubah, framework akan membangun ulang widget tersebut. Variabel-variabel yang terpengaruh oleh `setState()` adalah variabel yang berada dalam objek state dari komponen tersebut. Perubahan pada variabel-variabel ini akan memicu proses re-rendering komponen, sehingga UI akan diperbarui otomatis untuk menampilkan perubahan data terbaru.
 
-Fungsi setState adalah untuk memicu pembaruan UI untuk mencerminkan perubahan yang dilakukan dan menyimpan status seiring dilakukan interaksi oleh pengguna. Variabel yang dapat terdampak oleh setState() adalah variabel yang didefinisikan dalam class State dari widget, seperti variabel instance yang menyimpan informasi untuk membangun UI, serta list atau map yang berisi data dinamis. Misalnya, jika ada variabel integer yang menghitung jumlah klik tombol, memanggil setState() saat tombol ditekan akan mengubah nilai variabel tersebut dan memperbarui tampilan yang menampilkan jumlah klik.
+4. **Perbedaan const dan final**
 
-5. **Perbedaan const dan final**
-
-const adalah keyword yang digunakan untuk mendeklarasikan variabel yang valuenya harud ditentukan saat dilakukan complite tetapu tidak dapat diubah selama eksekusi program. final adalah keyword yang digunakan untuk mendeklarasikan variabel yang valuenya ditentukan saat program dijalankan dan tidak dapat diubah kembali.
+const adalah keyword yang digunakan untuk mendeklarasikan variabel yang valuenya harus ditentukan saat dilakukan compile tetapi tidak dapat diubah selama eksekusi program. final adalah keyword yang digunakan untuk mendeklarasikan variabel yang valuenya ditentukan saat program dijalankan dan tidak dapat diubah selama eksekusi program.
 
 </details>
