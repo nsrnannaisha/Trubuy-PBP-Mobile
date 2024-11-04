@@ -1,6 +1,6 @@
 # Trubuy - Mobile
 
-Sebuah proyek Fultter sebagai Tugas Mata Kuliah Pemrograman Berbasis Platform oleh Nisrina Annaisha Sarnadi dengan NPM 2306275960.
+Sebuah proyek Flutter sebagai Tugas Mata Kuliah Pemrograman Berbasis Platform oleh Nisrina Annaisha Sarnadi dengan NPM 2306275960 dari kelas PBP F.
 
 <details>
   <summary>Tugas 7</summary>
@@ -166,7 +166,6 @@ Stateless widget adalah widget yang tidak dapat diubah setelah widget tersebut d
 2. **Widget yang digunakan dan Berfungsi**
 
 - Material: Berfungsi untuk menyediakan latar belakang material design untuk widget.
-- Stateless: Berfungsi untuk menampilkan hal-hal yang sifatnya statis.
 - Icon: Berfungsi untuk menampilkan icon yang telah disediakan oleh Flutter.
 - Scaffold: Berfungsi untuk membuat halaman pada proyek Flutter.
 - Text: Berfungsi untuk menampilkan sebuah teks.
