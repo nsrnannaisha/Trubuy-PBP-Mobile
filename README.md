@@ -125,6 +125,19 @@ class ItemCard extends StatelessWidget {
     return Material(
       // Menentukan warna latar belakang dari tema aplikasi.
       color: item.color,
+
+      borderRadius: BorderRadius.circular(12),
+
+      // Aksi ketika kartu ditekan
+      child: InkWell(
+        onTap: () {
+          // Menampilkan pesan SnackBar saat kartu diklik
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))
+            );
+        },
       ...
                   style: const TextStyle(color: Colors.white),
                 ),
