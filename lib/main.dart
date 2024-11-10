@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trubuy_mobile/menu.dart';
+import 'package:trubuy_mobile/screens/menu.dart';
 
 void main() {
   runApp(const MyApp());
