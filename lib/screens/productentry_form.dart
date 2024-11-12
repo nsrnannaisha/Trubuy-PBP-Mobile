@@ -13,6 +13,8 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
   String _name = "";
   int _amount = 0;
   String _description = "";
+  int _price = 0;
+  double _rating = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,6 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
                   },
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
@@ -77,8 +78,12 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
                     if (value == null || value.isEmpty) {
                       return "Amount tidak boleh kosong!";
                     }
-                    if (int.tryParse(value) == null) {
+                    int? amount = int.tryParse(value);
+                    if (amount == null) {
                       return "Amount harus berupa angka!";
+                    }
+                    if (amount < 0) {
+                      return "Amount tidak boleh negatif";
                     }
                     return null;
                   },
@@ -102,6 +107,68 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
                       return "Description tidak boleh kosong!";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: "Price",
+                    labelText: "Price",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      _price = int.tryParse(value!) ?? 0;
+                    });
+                  },
+
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return "Price tidak boleh kosong!";
+                    }
+                    int? price = int.tryParse(value);
+                    if (price == null) {
+                      return "Price harus berupa angka!";
+                    }
+                    if (price < 0) {
+                      return "Price tidak boleh negatif";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    hintText: "Rating",
+                    labelText: "Rating",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      _rating = double.tryParse(value!) ?? 0;
+                    });
+                  },
+
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return "Rating tidak boleh kosong!";
+                    }
+                    double? rating = double.tryParse(value);
+                    if (rating == null) {
+                      return "Rating harus berupa angka desimal!";
+                    }
+                    if (rating < 0 || rating > 5) {
+                      return "Rating harus di antara 0 - 5!";
                     }
                     return null;
                   },
@@ -131,6 +198,8 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
                                     Text('Name: $_name'),
                                     Text('Amount: $_amount'),
                                     Text('Description: $_description'),
+                                    Text('Price: $_price'),
+                                    Text('Rating: $_rating'),
                                   ],
                                 ),
                               ),
