@@ -261,7 +261,9 @@ Row(
 
 3. **Elemen input yang digunakan dan tidak digunakan pada form**
 
-Elemen input yang digunakan adalah ```TextFormField``` untuk input product name, amount, description, price, dan rating. Elemen input yang tidak digunakan contohnya ```Checkbox```, ```Radio```, ```DropdownButton```, dll.
+Elemen input yang digunakan adalah ```TextFormField``` untuk meminta input product name, amount, description, price, dan rating. Selain itu, ```ElevatedButton``` untuk menyimpan input data yang sudah di input pada form sehingga saat button  ```save``` ditekan, detail produk akan ditampilkan. 
+
+Elemen input yang tidak digunakan contohnya ```Checkbox```, ```Radio```, ```DropdownButton```, ```Slider```, dll.
 
 4. **Cara mengatur tema dalam aplikasi agar konsisten dan apakah menggunakan tema**
 
