@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:trubuy_mobile/screens/productentry_form.dart';
+import 'package:trubuy_mobile/screens/list_productentry.dart';
+import 'package:trubuy_mobile/screens/login.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 // Definisikan parameter item homepage
 class ItemHomepage {
@@ -18,6 +22,8 @@ class ItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+
     return Material(
       // Definisikan warna
       color: item.color,
@@ -27,7 +33,7 @@ class ItemCard extends StatelessWidget {
       // Aksi ketika kartu ditekan
       child: InkWell(
         // Aksi ketika kartu ditekan.
-        onTap: () {
+        onTap: () async {
           // Menampilkan pesan SnackBar saat kartu ditekan.
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
@@ -35,10 +41,41 @@ class ItemCard extends StatelessWidget {
               SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))
             );
           // Navigate ke route yang sesuai (tergantung jenis tombol)
-          if (item.name == "Tambah Item") {
+          if (item.name == "Tambah Produk") {
             Navigator.push(context,
               MaterialPageRoute(builder: (context) => const ProductEntryFormPage()));
+          } 
+          else if (item.name == "Lihat Produk") {
+            Navigator.push(context,
+                MaterialPageRoute(
+                    builder: (context) => const ProductEntryPage()
+                ),
+            );
           }
+          else if (item.name == "Logout") {
+            final response = await request.logout(
+                // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                "http://127.0.0.1:8000/auth/logout/");
+            String message = response["message"];
+            if (context.mounted) {
+                if (response['status']) {
+                    String uname = response["username"];
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("$message Sampai jumpa, $uname."),
+                    ));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LoginPage()),
+                    );
+                } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content: Text(message),
+                        ),
+                    );
+                }
+            }
+        }
         },
 
         // Container untuk menyimpan Icon dan Text

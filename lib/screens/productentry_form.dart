@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:trubuy_mobile/screens/menu.dart';
 import 'package:trubuy_mobile/widgets/left_drawer.dart';
-
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 class ProductEntryFormPage extends StatefulWidget {
   const ProductEntryFormPage({super.key});
 
@@ -11,18 +14,20 @@ class ProductEntryFormPage extends StatefulWidget {
 class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
   final _formKey = GlobalKey<FormState>();
   String _name = "";
-  int _amount = 0;
+  int _quantity = 0;
   String _description = "";
   int _price = 0;
   double _rating = 0.0;
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Center(
           child: Text(
-            'Form Tambah Item',
+            'Form Tambah Produk',
           ),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -62,28 +67,28 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: "Amount",
-                    labelText: "Amount",
+                    hintText: "Quantity",
+                    labelText: "Quantity",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
                   onChanged: (String? value) {
                     setState(() {
-                      _amount = int.tryParse(value!) ?? 0;
+                      _quantity = int.tryParse(value!) ?? 0;
                     });
                   },
 
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return "Amount tidak boleh kosong!";
+                      return "Quantity tidak boleh kosong!";
                     }
-                    int? amount = int.tryParse(value);
-                    if (amount == null) {
-                      return "Amount harus berupa angka!";
+                    int? quantity = int.tryParse(value);
+                    if (quantity == null) {
+                      return "Quantity harus berupa angka!";
                     }
-                    if (amount < 0) {
-                      return "Amount tidak boleh negatif";
+                    if (quantity < 0) {
+                      return "Quantity tidak boleh negatif";
                     }
                     return null;
                   },
@@ -184,38 +189,39 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
                       backgroundColor: MaterialStateProperty.all(
                           Theme.of(context).colorScheme.primary),
                     ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Item berhasil tersimpan'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Name: $_name'),
-                                    Text('Amount: $_amount'),
-                                    Text('Description: $_description'),
-                                    Text('Price: $_price'),
-                                    Text('Rating: $_rating'),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    _formKey.currentState!.reset();
-                                  },
-                                ),
-                              ],
+                    onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                            // Kirim ke Django dan tunggu respons
+                            final response = await request.postJson(
+                                "http://127.0.0.1:8000/create-flutter/",
+                                jsonEncode(<String, String>{
+                                'name': _name,
+                                'quantity': _quantity.toString(),
+                                'description': _description,
+                                'price': _price.toString(), // Convert _price to a string if necessary
+                                'rating': _rating.toString(), // Convert _rating to a string if necessary
+                              })
+
                             );
-                          },
-                        );
-                      }
+                            if (context.mounted) {
+                                if (response['status'] == 'success') {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                    content: Text("Produk baru berhasil disimpan!"),
+                                    ));
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => MyHomePage()),
+                                    );
+                                } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                        content:
+                                            Text("Terdapat kesalahan, silakan coba lagi."),
+                                    ));
+                                }
+                            }
+                        }
                     },
                     child: const Text(
                       "Save",

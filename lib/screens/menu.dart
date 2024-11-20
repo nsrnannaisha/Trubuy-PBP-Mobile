@@ -18,7 +18,7 @@ class MyHomePage extends StatelessWidget {
   // Definisikan items
   final List<ItemHomepage> items = [
     ItemHomepage("Lihat Daftar Produk", Icons.list, ColorSelect.button1),
-    ItemHomepage("Tambah Item", Icons.add, ColorSelect.button2),
+    ItemHomepage("Tambah Produk", Icons.add, ColorSelect.button2),
     ItemHomepage("Logout", Icons.logout, ColorSelect.cbuttons),
   ];
 
@@ -68,7 +68,7 @@ class MyHomePage extends StatelessWidget {
               // Menempatkan widget di tengah halaman
               Center(
                 child: Column(
-                  // Menyusun teks dan grid item
+                  // Menyusun teks dan grid produk
                   children: [
                     // Menampilkan welcome message
                     const Padding(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trubuy_mobile/screens/menu.dart';
 import 'package:trubuy_mobile/screens/productentry_form.dart';
+import 'package:trubuy_mobile/screens/list_productentry.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -52,13 +53,25 @@ class LeftDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.list),
-            title: const Text('Tambah Item'),
+            title: const Text('Tambah Produk'),
             onTap: () {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                   builder: (context) => ProductEntryFormPage(),
                 ));
+            },
+          ),
+          // Kode ListTile Menu
+          ListTile(
+            leading: const Icon(Icons.add_reaction_rounded),
+            title: const Text('Daftar Produk'),
+            onTap: () {
+                // Route menu ke halaman produk
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ProductEntryPage()),
+                );
             },
           ),
         ],
