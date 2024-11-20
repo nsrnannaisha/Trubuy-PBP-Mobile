@@ -366,8 +366,10 @@ pada file android/app/src/main/AndroidManifest.xml untuk memperbolehkan akses In
 
 31. Mengubah perintah onTap pada widget inkwell dengan menambahkan async
 
-32. menambahkan kode untuk log out.
-    
+32. Menambahkan kode untuk log out.
+
+33. Membuat file product_detail.dart untuk membuat halaman detail untuk setiap item pada subdirektori screen dan mengintegrasikan dengan list_productentry.dart.
+
 ### Jawaban Pertanyaan
 
 1. **Alasan perlu membuat model untuk melakukan pengambilan ataupun pengiriman data JSON? Apakah akan terjadi error jika tidak dilakukan?**
