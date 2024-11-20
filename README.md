@@ -277,3 +277,149 @@ Saya menangani navigasi dalam aplikasi dengan menggunakan ```Navigator```. Saya 
  - ```Navigator.pop``` menghapus halaman terakhir dari stack dan kembali ke halaman sebelumnya.
 
 </details>
+
+<details>
+  <summary>Tugas 9</summary>
+	
+## Tugas 9
+	
+### Integrasi Layanan Web Django dengan Aplikasi Flutter
+
+1. Membuat django-app bernama authentication pada project Django yang telah dibuat.
+
+2. Menambahkan authentication ke ```INSTALLED_APPS``` pada main project settings.py aplikasi Django.
+
+3. Menambahkan ```django-cors-headers``` ke ```requirements.txt dan menyalakan virtual environment Python 
+
+4. Menjalankan perintah pip install django-cors-headers untuk menginstal library yang dibutuhkan.
+
+5. Menambahkan ```corsheaders``` ke ```INSTALLED_APPS``` pada main project settings.py aplikasi Django.
+
+6. Menambahkan ```corsheaders.middleware.CorsMiddleware``` ke ```MIDDLEWARE``` pada main project settings.py aplikasi Django.
+
+7. Menambahkan variabel pada main project settings.py aplikasi Django.
+```bash
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'
+Menambahkan 10.0.2.2 pada ALLOWED_HOSTS di berkas settings.py.
+```
+
+8. Menambahkan IP address 127.0.0.1:8000 di settings.py
+
+9. Membuat method login pada authentication/views.py.
+
+10. Membuat file urls.py pada sub direktori authentication dan menambahkan URL routing untuk login.
+
+11. Menambahkan ```path('auth/', include('authentication.urls')),``` urls.py di subdirektori trubuy di django.
+
+12. Menginstal package untuk dapat mengakses library flutter.
+
+13. Memodifikasi root widget untuk menyediakan CookieRequest library ke semua child widgets dengan menggunakan Provider dan menambahkan import:
+```bash
+import 'package:pbp_django_auth/pbp_django_auth.dart'; 
+import 'package:provider/provider.dart';
+```
+
+14. Membuat file baru pada folder screens dengan nama login.dart dan mengisinya dengan class, methodnya, fungsionaltiasnya, dan import yang dibutuhkan.
+
+15. Mengubah home: MyHomePage() menjadi home: const LoginPage() pada file main.dart Widget MaterialApp(...).
+
+16. Membuat method register pada authentication/views.py pada proyek django dan menambahkan import yang dibutuhkan.
+
+17. Menambahkan path('register/', register, name='register'), pada file authentication/urls.py.
+
+18. Membuat berkas baru pada folder screens dengan nama register.dart dan mengisinya dengan class, methodnya, fungsionaltiasnya, dan import yang dibutuhkan.
+
+19. Membuka endpoint JSON dan menyalin datanya ke situs Quicktype lalu Copy Code sebagai isi dari file baru product_entry.dart pada subdirektori baru models pada subdirektori lib. 
+
+20. Melakukan flutter pub add http pada terminal proyek Flutter untuk menambahkan package http.
+
+21. Menambahkan
+```bash
+</application>
+<!-- Required to fetch data from the Internet. -->
+<uses-permission android:name="android.permission.INTERNET" />
+```
+pada file android/app/src/main/AndroidManifest.xml untuk memperbolehkan akses Internet pada aplikasi Flutter yang sedang dibuat.
+
+22. Membuat file baru pada direktori lib/screens dengan nama list_product.dart yang diisi dengan class, methodnya, fungsionaltiasnya, dan import yang dibutuhkan.
+
+23. Menambahkan halaman list_productentry.dart ke widgets/left_drawer.dart.
+
+24. Mengubah fungsi tombol ```Lihat Daftar Produk``` pada halaman utama agar mengarahkan ke halaman ProductPage.
+
+25. Mengimport file yang dibutuhkan saat menambahkan ProductEntryPage.
+
+26. Membuat fungsi create_product_flutter pada main/views.py dan menambahkan path baru path('create-flutter/', create_product_flutter, name='create_product_flutter'), pada main/urls.py.
+
+27. Menghubungkan halaman product_form.dart dengan CookieRequest.
+
+28. Mengubah perintah pada onPressed: () button.
+
+29. Membuat method logout pada authentication/views.py dan menambahkan path('logout/', logout, name='logout'), pada file authentication/urls.py.
+
+30. Menambahkan CookieRequest pada lib/widgets/product_card.dart.
+
+31. Mengubah perintah onTap pada widget inkwell dengan menambahkan async
+
+32. menambahkan kode untuk log out.
+    
+### Jawaban Pertanyaan
+
+1. **Alasan perlu membuat model untuk melakukan pengambilan ataupun pengiriman data JSON? Apakah akan terjadi error jika tidak dilakukan?**
+
+Membuat model untuk pengambilan atau pengiriman data JSON di aplikasi Flutter sangat penting untuk menjaga struktur data yang konsisten dan memudahkan dalam serialisasi dan deserialisasi data. Model ini akan mendefinisikan bagaimana data harus diterima atau dikirim dalam bentuk yang terstruktur.
+Jika model tidak dibuat, data JSON akan perlu dibuat secara manual, yang bisa rentan terhadap kesalahan seperti key yang hilang atau data yang tidak terformat dengan benar.
+Tanpa model, tidak akan ada jaminan bahwa data yang diterima atau dikirim memiliki struktur yang benar, dan ini berpotensi menyebabkan error atau bug.
+
+2. **Fungsi library http yang sudah diimplementasikan**
+
+Library http di Flutter digunakan untuk melakukan komunikasi HTTP dengan server (misalnya, mengambil data dari server atau mengirim data ke server). Fungsi utama dari library ini adalah:
+
+- GET: Untuk mengambil data dari server.
+- POST: Untuk mengirimkan data ke server.
+- PUT/PATCH: Untuk memperbarui data yang sudah ada di server.
+- DELETE: Untuk menghapus data di server.
+
+3. **Fungsi dari CookieRequest dan alasan instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter**
+
+CookieRequest adalah objek yang digunakan untuk menangani permintaan HTTP yang berhubungan dengan cookies. Dalam konteks aplikasi yang menggunakan autentikasi berbasis session atau token (seperti token yang disimpan dalam cookies), CookieRequest memastikan bahwa cookies yang diperlukan dapat dikirim bersama permintaan HTTP, dan juga dapat menangani cookies yang diterima dari server.
+
+4. **Mekanisme pengiriman data mulai dari input hingga dapat ditampilkan pada Flutter**
+
+Mekanisme Pengiriman Data:
+- Input Data: Pengguna memasukkan data (misalnya, nama, harga) di antarmuka pengguna Flutter (misalnya, menggunakan form atau text fields).
+- Serialisasi Data: Data yang dimasukkan kemudian diubah menjadi format JSON menggunakan model atau map yang sesuai.
+- Pengiriman Data ke Server: Data JSON dikirim ke server menggunakan permintaan HTTP (seperti http.post atau http.put), dan server akan menerima data ini untuk diproses.
+- Tanggapan dari Server: Server mengembalikan response yang bisa berisi hasil pemrosesan, data yang diperbarui, atau konfirmasi.
+- Deserialisasi Data: Setelah menerima response dari server, data JSON yang diterima akan diubah menjadi objek Dart menggunakan model yang telah dibuat sebelumnya.
+- Tampilkan Data: Data yang telah diubah menjadi objek Dart kemudian digunakan untuk memperbarui tampilan di aplikasi Flutter (misalnya, menggunakan setState() atau Provider).
+
+5. **Mekanisme autentikasi dari login, register, hingga logout. Mulai dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter**
+
+Mekanisme Autentikasi:
+
+- Login:
+	- Pengguna memasukkan data login (misalnya, username/email dan password) melalui form di Flutter.
+	- Data login dikirim ke server (misalnya, menggunakan http.post) untuk diverifikasi oleh Django.
+	- Django memverifikasi data login, dan jika valid, mengembalikan token autentikasi (misalnya, JWT) atau session cookie.
+	- Token atau session cookie disimpan di aplikasi Flutter (misalnya, di shared preferences atau storage lokal).
+	- Aplikasi Flutter menggunakan token atau session cookie ini untuk autentikasi pada setiap permintaan HTTP berikutnya.
+	- Setelah berhasil login, tampilan menu atau halaman pengguna ditampilkan.
+- Register:
+	- Pengguna mengisi data pendaftaran (misalnya, nama, email, password).
+	- Data pendaftaran dikirim ke server Django untuk membuat akun baru.
+	- Jika pendaftaran berhasil, server mengembalikan status sukses, dan aplikasi Flutter dapat mengarahkan pengguna ke halaman login.
+- Logout:
+	- Pengguna memilih untuk logout dari aplikasi.
+	- Aplikasi menghapus token autentikasi atau session cookie yang disimpan sebelumnya.
+	- Pengguna diarahkan kembali ke halaman login.
+ - Proses Otentikasi Django:
+	- Django menerima permintaan login dan memverifikasi kredensial pengguna.
+	- Jika kredensial valid, Django mengembalikan token atau session cookie.
+	- Untuk logout, Django menghapus session yang terkait dengan pengguna.
+</details>
