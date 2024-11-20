@@ -202,6 +202,78 @@ setState() berfungsi untuk memicu dilakukannya refresh pada tampilan aplikasi. K
 
 4. **Perbedaan const dan final**
 
-const adalah keyword yang digunakan untuk mendeklarasikan variabel yang valuenya harus ditentukan saat dilakukan compile tetapi tidak dapat diubah selama eksekusi program. final adalah keyword yang digunakan untuk mendeklarasikan variabel yang valuenya ditentukan saat program dijalankan dan tidak dapat diubah selama eksekusi program.
+```const``` adalah keyword yang digunakan untuk mendeklarasikan variabel yang valuenya harus ditentukan saat dilakukan compile tetapi tidak dapat diubah selama eksekusi program. final adalah keyword yang digunakan untuk mendeklarasikan variabel yang valuenya ditentukan saat program dijalankan dan tidak dapat diubah selama eksekusi program.
+
+</details>
+
+<details>
+  <summary>Tugas 8</summary>
+
+## Tugas 7
+
+### Flutter Navigation, Layouts, Forms, and Input Elements
+
+### Jawaban Pertanyaan
+1. **Kegunaan, keuntungan, dan waktu penggunaan const pada Flutter**
+
+```const``` pada Flutter digunakan untuk mendefinisikan objek yang bersifat konstan, atau tidak berubah selama runtime aplikasi. Hal ini berguna untuk widget yang tidak berubah, seperti teks statis atau tata letak yang tidak dinamis.
+
+Keuntungan ```const```:
+
+- Penghematan memori karena objek dengan ```const``` disimpan sebagai satu instance di memori yang tidak perlu diduplikasi setiap digunakan,
+- compile-time validation atau kesalahan pada objek ```const``` akan terdeteksi saat kompilasi,
+- Optimasi performa karena memungkinkan compiler untuk melakukan optimasi yang dapat meningkatkan performa aplikasi secara signifikan.
+  
+Waktu penggunaan:
+
+```const``` sebaiknya digunakan saat akan dibuat widget atau variabel yang tidak akan berubah selama aplikasi berjalan, seperti gaya teks tetap, ikon, atau layout statis. ```const``` sebaiknya tidak digunakan untuk data yang bersifat dinamis atau berubah.
+
+2. **Perbandingan penggunaan Column dan Row pada Flutter serta implementasinya**
+
+Column dan Row adalah widget tata letak yang sering digunakan untuk mengatur widget. Column mengatur widget secara vertikal sedangkan Row mengatur widget secara horizontal.
+
+Contoh implementasi:
+
+- Column (Menampilkan teks secara vertikal dari atas ke bawah)
+```dart
+child: Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Text('Name: $_name'),
+    Text('Amount: $_amount'),
+    Text('Description: $_description'),
+    Text('Price: $_price'),
+    Text('Rating: $_rating'),
+  ],
+),
+```
+- Row (Menampilkan infocard secara horizontal dari kiri ke kanan)
+```dart
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  children: [
+    InfoCard(title: 'NPM', content: npm),
+    InfoCard(title: 'Name', content: name),
+    InfoCard(title: 'Class', content: className),
+  ],
+),
+```
+
+3. **Elemen input yang digunakan dan tidak digunakan pada form**
+
+Elemen input yang digunakan adalah ```TextFormField``` untuk meminta input product name, amount, description, price, dan rating. Selain itu, ```ElevatedButton``` untuk menyimpan input data yang sudah di input pada form sehingga saat button  ```save``` ditekan, detail produk akan ditampilkan. 
+
+Elemen input yang tidak digunakan contohnya ```Checkbox```, ```Radio```, ```DropdownButton```, ```Slider```, dll.
+
+4. **Cara mengatur tema dalam aplikasi agar konsisten dan apakah menggunakan tema**
+
+Saya mengatur tema dalam aplikasi Flutter dengan menggunakan ```ThemeData``` dalam widget ```Material App```. ```ThemeData``` digunakan untuk mengonfigurasi berbagai elemen tampilan dalam aplikasi. Pada aplikasi ini, saya menggunakan teman untuk mengonfigurasi ```colorScheme``` yang dapat digunakan untuk mendefinisikan warna dasar aplikasi (primary). Warna dasar ini saya gunakan untuk mewarnai button, appBar, dan header drawer.
+
+5. **Cara menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter**
+
+Saya menangani navigasi dalam aplikasi dengan menggunakan ```Navigator```. Saya menggunakan:
+ - ```Navigator.push()``` untuk menambahkan halaman baru ke dalam tumpukan navigasi,
+ - ```Navigator.pushReplacement()``` untuk mengganti halaman yang sedang diakses dengan halaman baru dan menghapus halaman sebelumnya dari stack,
+ - ```Navigator.pop``` menghapus halaman terakhir dari stack dan kembali ke halaman sebelumnya.
 
 </details>
