@@ -1,9 +1,11 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:trubuy_mobile/screens/menu.dart';
 import 'package:trubuy_mobile/widgets/left_drawer.dart';
+import 'package:trubuy_mobile/screens/menu.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+
 class ProductEntryFormPage extends StatefulWidget {
   const ProductEntryFormPage({super.key});
 
@@ -13,7 +15,7 @@ class ProductEntryFormPage extends StatefulWidget {
 
 class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
   final _formKey = GlobalKey<FormState>();
-  String _name = "";
+  String _product = "";
   int _quantity = 0;
   String _description = "";
   int _price = 0;
@@ -22,7 +24,6 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -44,20 +45,20 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   decoration: InputDecoration(
-                    hintText: "Name",
-                    labelText: "Name",
+                    hintText: "Product",
+                    labelText: "Product",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
                   onChanged: (String? value) {
                     setState(() {
-                      _name = value!;
+                      _product = value!;
                     });
                   },
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return "Name tidak boleh kosong!";
+                      return "Nama produk tidak boleh kosong!";
                     }
                     return null;
                   },
@@ -179,29 +180,28 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
                   },
                 ),
               ),
-
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
+                      backgroundColor: WidgetStateProperty.all(
                           Theme.of(context).colorScheme.primary),
                     ),
                     onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                             // Kirim ke Django dan tunggu respons
+                            // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
                             final response = await request.postJson(
                                 "http://127.0.0.1:8000/create-flutter/",
                                 jsonEncode(<String, String>{
-                                'name': _name,
-                                'quantity': _quantity.toString(),
-                                'description': _description,
-                                'price': _price.toString(), // Convert _price to a string if necessary
-                                'rating': _rating.toString(), // Convert _rating to a string if necessary
-                              })
-
+                                    'product': _product,
+                                    'quantity': _quantity.toString(),
+                                    'description': _description,
+                                    'price': _price.toString(),
+                                    'rating': _rating.toString(),
+                                }),
                             );
                             if (context.mounted) {
                                 if (response['status'] == 'success') {

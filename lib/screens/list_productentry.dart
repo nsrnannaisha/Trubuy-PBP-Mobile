@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trubuy_mobile/models/product_entry.dart';
+import 'package:trubuy_mobile/models/Product_entry.dart';
 import 'package:trubuy_mobile/widgets/left_drawer.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -13,11 +13,12 @@ class ProductEntryPage extends StatefulWidget {
 
 class _ProductEntryPageState extends State<ProductEntryPage> {
   Future<List<ProductEntry>> fetchProduct(CookieRequest request) async {
+    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     final response = await request.get('http://127.0.0.1:8000/json/');
-    
+
     // Melakukan decode response menjadi bentuk json
     var data = response;
-    
+
     // Melakukan konversi data json menjadi object ProductEntry
     List<ProductEntry> listProduct = [];
     for (var d in data) {

@@ -12,33 +12,33 @@ class LeftDrawer extends StatelessWidget {
       child: ListView(
         children: [
           DrawerHeader(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              child: const Column(
-                children: [
-                  Text(
-                    'Trubuy',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            child: const Column(
+              children: [
+                Text(
+                  'Mental Health Tracker',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  Padding(padding: EdgeInsets.all(8)),
-                  Text(
-                    "Trust Us to Buy Your Home Things",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
+                ),
+                Padding(padding: EdgeInsets.all(8)),
+                Text(
+                  "Trust Us to Buy Your Home Things",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white,
                   ),
-                ],
-              ),
+                ),
+              ],
+            ),
           ),
-
           ListTile(
             leading: const Icon(Icons.home_outlined),
             title: const Text('Halaman Utama'),
@@ -54,25 +54,26 @@ class LeftDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.list),
             title: const Text('Tambah Produk'),
+            // Bagian redirection ke ProductEntryFormPage
             onTap: () {
               Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProductEntryFormPage(),
-                ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductEntryFormPage(),
+                  ));
             },
           ),
           // Kode ListTile Menu
           ListTile(
-            leading: const Icon(Icons.add_reaction_rounded),
-            title: const Text('Daftar Produk'),
-            onTap: () {
-                // Route menu ke halaman produk
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ProductEntryPage()),
-                );
-            },
+              leading: const Icon(Icons.add_reaction_rounded),
+              title: const Text('Daftar Produk'),
+              onTap: () {
+                  // Route menu ke halaman produk
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ProductEntryPage()),
+                  );
+              },
           ),
         ],
       ),
